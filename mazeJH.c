@@ -16,7 +16,6 @@ const int directions[4] = {1, SIZE, -SIZE, -1};
 int mazeTraverse(char maze[SIZE][SIZE], int current, int start, int prev);
 void display(char maze[SIZE][SIZE], int current);
 void clearScreenAndDelay();
-int msleep(long msec);
 
 
 int main()
@@ -94,6 +93,7 @@ void display(char maze[SIZE][SIZE], int current)
 		{
 			if (maze[i][j] == '#')
 			{
+				// The solid block unicode string
 				printf("\u2588");
 			} else if (maze[i][j] == '.')
 			{
@@ -109,35 +109,9 @@ void display(char maze[SIZE][SIZE], int current)
 
 void clearScreenAndDelay()
 {
+	// ANSI escape code to clear screen
 	printf("\e[1;1H\e[2J");
 	
-	//msleep(999);
+	// This is technically deprecated but it works so I'm keeping it in
 	usleep(150*1000);
-}
-
-
-// Not sure why this doesn't work, considering I stole it from stackoverflow and I've used this code before
-// https://stackoverflow.com/questions/1157209/is-there-an-alternative-sleep-function-in-c-to-milliseconds
-int msleep(long msec) 
-{
-
-	struct timespec ts;
-	int res;
-	
-	if (res < 0)
-	{
-		errno = EINVAL;
-		return -1;
-	}
-
-	ts.tv_sec = msec / 1000;
-	ts.tv_nsec = (msec % 1000) * 100000;
-
-	do 
-	{
-		res = nanosleep(&ts,&ts);
-	}
-	while (res && errno == EINTR);
-
-	return res;
 }
