@@ -35,11 +35,16 @@ int main()
 		{'#','.','.','.','.','.','.','#','.','.','.','#'},
 		{'#','#','#','#','#','#','#','#','#','#','#','#'}
 	};
+	// starting grid position
+	const int startX = 2;
+	const int startY = 0;
+	const int startPos = startX * 12 + startY;
 
 	// Clears screen to make fresh start
 	printf("\e[1;1H\e[2J");
 
-	mazeTraverse(maze,24,24,0);
+	
+	mazeTraverse(maze,startPos,startPos,0);
 
 	return 0;
 }
